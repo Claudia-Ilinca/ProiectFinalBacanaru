@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd">
+<suite name="SequentialTestSuite">
+    <test name="StandardUser">
+        <packages>
+            <package name="Tests.StandardUser"/>
+        </packages>
+    </test>
+    <test name="VisualUserTests">
+        <packages>
+            <package name="Tests.VisualUser"/>
+        </packages>
+    </test>
+</suite>

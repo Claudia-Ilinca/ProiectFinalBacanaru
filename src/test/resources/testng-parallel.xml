@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd">
+<suite name="ParallelTestSuite" parallel="methods" thread-count="2">
+    <test name="AuthenticationTests">
+        <packages>
+            <package name="Tests.AuthenticationTests"/>
+        </packages>
+    </test>
+    <test name="PerformanceGlitchUserTests">
+        <packages>
+            <package name="Tests.PerformanceGlitchUser"/>
+        </packages>
+    </test>
+    <test name="ProblemUser">
+        <packages>
+            <package name="Tests.ProblemUser"/>
+        </packages>
+    </test>
+    <test name="ErrorUserTests">
+        <packages>
+            <package name="Tests.ErrorUser"/>
+        </packages>
+    </test>
+</suite>
