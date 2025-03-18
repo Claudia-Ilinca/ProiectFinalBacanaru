@@ -27,6 +27,15 @@ public class BrowserFactory {
     private static WebDriver initializeChromeDriver() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+
+        boolean isCI = "true".equalsIgnoreCase(System.getenv("CI"));
+        if (isCI) {
+            options.addArguments("--headless"); // Rulează headless doar în CI
+            LoggerUtility.info("Running in CI environment, enabling headless mode");
+        } else {
+            LoggerUtility.info("Running locally, using non-headless mode");
+        }
+
         options.addArguments("--disable-gpu", "--no-sandbox", "--window-size=1920,1080");
         options.addArguments("--disable-extensions", "--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
