@@ -26,17 +26,17 @@ public class TestProductPageFlow extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.goToBackpackProductPage();
         LoggerUtility.info("Navigated to product page");
 
         ProductPage productPage = new ProductPage(driver);
-        Assert.assertTrue(productPage.isOnProductPage(), "Not on product page");
+        Assert.assertTrue(productPage.isOnPage(), "Not on product page");
         productPage.addToCart();
         LoggerUtility.info("Added Sauce Labs Backpack from product page");
 
         productPage.goBackToInventory();
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not navigated back to inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not navigated back to inventory page");
         LoggerUtility.info("Navigated back to inventory page");
 
         inventoryPage.addBikeLightToCart();
@@ -59,13 +59,13 @@ public class TestProductPageFlow extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.addBackpackToCart();
         inventoryPage.goToBackpackProductPage();
         LoggerUtility.info("Navigated to product page");
 
         ProductPage productPage = new ProductPage(driver);
-        Assert.assertTrue(productPage.isOnProductPage(), "Not on product page");
+        Assert.assertTrue(productPage.isOnPage(), "Not on product page");
         productPage.removeFromCart();
         LoggerUtility.info("Removed Sauce Labs Backpack from product page");
 

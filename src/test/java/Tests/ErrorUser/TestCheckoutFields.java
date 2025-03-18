@@ -28,8 +28,8 @@ public class TestCheckoutFields extends BaseTest {
 
         InventoryPage inventoryPage = new InventoryPage(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(d -> inventoryPage.isOnInventoryPage());
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        wait.until(d -> inventoryPage.isOnPage());
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         LoggerUtility.info("User is on inventory page");
 
         LoggerUtility.endTest("testCheckoutFieldTwoNotWorking");

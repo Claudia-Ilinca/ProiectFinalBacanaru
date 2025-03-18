@@ -26,12 +26,12 @@ public class TestNavigationFlow extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.goToAboutPage();
         LoggerUtility.info("Navigated to about page");
 
         AboutPage aboutPage = new AboutPage(driver);
-        Assert.assertTrue(aboutPage.isOnAboutPage(), "Not on about page");
+        Assert.assertTrue(aboutPage.isOnPage(), "Not on about page");
         Assert.assertFalse(aboutPage.is404Displayed(), "Expected no 404 error for standard_user");
         LoggerUtility.info("Verified about page is accessible");
 
@@ -47,15 +47,15 @@ public class TestNavigationFlow extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.addBackpackToCart();
         inventoryPage.goToCart();
         LoggerUtility.info("Navigated to cart page");
 
         CartPage cartPage = new CartPage(driver);
-        Assert.assertTrue(cartPage.isOnCartPage(), "Not on cart page");
+        Assert.assertTrue(cartPage.isOnPage(), "Not on cart page");
         cartPage.goBackToInventory();
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not navigated back to inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not navigated back to inventory page");
         LoggerUtility.info("Navigated back to inventory page");
 
         LoggerUtility.endTest("testNavigateBackFromCart");

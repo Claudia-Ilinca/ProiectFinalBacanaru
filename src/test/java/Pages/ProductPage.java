@@ -1,16 +1,11 @@
 package Pages;
 
 import Helpers.WebActions;
-import Helpers.WebElementActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class ProductPage {
-
-    private final WebActions webActions;
-    private final WebDriver driver;
+public class ProductPage extends BasePage {
 
     @FindBy(className = "inventory_details_name")
     private WebElement productName;
@@ -34,9 +29,7 @@ public class ProductPage {
     private WebElement productPrice;
 
     public ProductPage(WebDriver driver) {
-        this.driver = driver;
-        this.webActions = new WebElementActions(driver);
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public String getProductName() {
@@ -67,7 +60,13 @@ public class ProductPage {
         webActions.click(removeButton);
     }
 
-    public boolean isOnProductPage() {
+    @Override
+    public boolean isOnPage() {
         return driver.getCurrentUrl().contains("inventory-item.html");
+    }
+
+    @Override
+    public String getPageTitle() {
+        return "Product: " + getProductName(); // Polimorfism prin suprascriere
     }
 }

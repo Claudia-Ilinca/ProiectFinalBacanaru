@@ -26,18 +26,18 @@ public class TestCheckoutFlow extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.addBackpackToCart();
         LoggerUtility.info("Added Sauce Labs Backpack to cart");
 
         inventoryPage.goToCart();
         CartPage cartPage = new CartPage(driver);
-        Assert.assertTrue(cartPage.isOnCartPage(), "Not on cart page");
+        Assert.assertTrue(cartPage.isOnPage(), "Not on cart page");
         cartPage.goToCheckout();
         LoggerUtility.info("Navigated to checkout page");
 
         CheckoutPage checkoutPage = new CheckoutPage(driver);
-        Assert.assertTrue(checkoutPage.isOnCheckoutPage(), "Not on checkout page");
+        Assert.assertTrue(checkoutPage.isOnPage(), "Not on checkout page");
         checkoutPage.fillCheckoutForm(userData.getFirstName(), userData.getLastName(), userData.getPostalCode());
         LoggerUtility.info("Filled checkout form with valid data");
 
@@ -57,18 +57,18 @@ public class TestCheckoutFlow extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.addBackpackToCart();
         LoggerUtility.info("Added Sauce Labs Backpack to cart");
 
         inventoryPage.goToCart();
         CartPage cartPage = new CartPage(driver);
-        Assert.assertTrue(cartPage.isOnCartPage(), "Not on cart page");
+        Assert.assertTrue(cartPage.isOnPage(), "Not on cart page");
         cartPage.goToCheckout();
         LoggerUtility.info("Navigated to checkout page");
 
         CheckoutPage checkoutPage = new CheckoutPage(driver);
-        Assert.assertTrue(checkoutPage.isOnCheckoutPage(), "Not on checkout page");
+        Assert.assertTrue(checkoutPage.isOnPage(), "Not on checkout page");
         checkoutPage.fillCheckoutForm("", userData.getLastName(), userData.getPostalCode());
         LoggerUtility.info("Filled checkout form with missing first name");
 

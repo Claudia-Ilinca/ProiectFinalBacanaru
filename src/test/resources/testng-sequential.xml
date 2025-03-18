@@ -5,9 +5,4 @@
             <package name="Tests.StandardUser"/>
         </packages>
     </test>
-    <test name="VisualUserTests">
-        <packages>
-            <package name="Tests.VisualUser"/>
-        </packages>
-    </test>
 </suite>

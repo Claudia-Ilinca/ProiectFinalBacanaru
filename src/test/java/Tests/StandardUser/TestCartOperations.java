@@ -25,7 +25,7 @@ public class TestCartOperations extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.addBackpackToCart();
         LoggerUtility.info("Added Sauce Labs Backpack to cart");
 
@@ -35,7 +35,7 @@ public class TestCartOperations extends BaseTest {
 
         inventoryPage.goToCart();
         CartPage cartPage = new CartPage(driver);
-        Assert.assertTrue(cartPage.isOnCartPage(), "Not on cart page");
+        Assert.assertTrue(cartPage.isOnPage(), "Not on cart page");
         Assert.assertEquals(cartPage.getFirstItemName(), "Sauce Labs Backpack", "Incorrect product in cart");
         LoggerUtility.info("Verified Sauce Labs Backpack in cart");
 
@@ -51,7 +51,7 @@ public class TestCartOperations extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.addBackpackToCart();
         LoggerUtility.info("Added Sauce Labs Backpack to cart");
         inventoryPage.addBikeLightToCart();
@@ -65,7 +65,7 @@ public class TestCartOperations extends BaseTest {
 
         inventoryPage.goToCart();
         CartPage cartPage = new CartPage(driver);
-        Assert.assertTrue(cartPage.isOnCartPage(), "Not on cart page");
+        Assert.assertTrue(cartPage.isOnPage(), "Not on cart page");
         Assert.assertEquals(cartPage.getItemCount(), 3, "Cart should contain 3 items");
         LoggerUtility.info("Verified 3 items in cart");
 
@@ -81,7 +81,7 @@ public class TestCartOperations extends BaseTest {
         LoggerUtility.info("Logged in with standard_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         inventoryPage.addBackpackToCart();
         LoggerUtility.info("Added Sauce Labs Backpack to cart");
         Assert.assertEquals(inventoryPage.getCartItemCount(), "1", "Cart should have 1 item");

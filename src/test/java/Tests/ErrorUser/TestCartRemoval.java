@@ -24,7 +24,7 @@ public class TestCartRemoval extends BaseTest {
         LoggerUtility.info("Logged in with error_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         LoggerUtility.info("User is on inventory page");
 
         inventoryPage.addBackpackToCart();

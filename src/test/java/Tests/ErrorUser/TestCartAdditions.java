@@ -25,7 +25,7 @@ public class TestCartAdditions extends BaseTest {
         LoggerUtility.info("Logged in with error_user");
 
         InventoryPage inventoryPage = new InventoryPage(driver);
-        Assert.assertTrue(inventoryPage.isOnInventoryPage(), "Not on inventory page");
+        Assert.assertTrue(inventoryPage.isOnPage(), "Not on inventory page");
         LoggerUtility.info("User is on inventory page");
 
         inventoryPage.addAllProductsToCart();
@@ -33,7 +33,7 @@ public class TestCartAdditions extends BaseTest {
 
         inventoryPage.goToCart();
         CartPage cartPage = new CartPage(driver);
-        Assert.assertTrue(cartPage.isOnCartPage(), "Not on cart page");
+        Assert.assertTrue(cartPage.isOnPage(), "Not on cart page");
         LoggerUtility.info("Navigated to cart page");
 
         int itemCount = cartPage.getItemCount();

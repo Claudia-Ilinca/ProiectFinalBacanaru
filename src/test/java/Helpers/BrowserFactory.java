@@ -29,7 +29,7 @@ public class BrowserFactory {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-gpu", "--no-sandbox", "--window-size=1920,1080");
         options.addArguments("--disable-extensions", "--disable-dev-shm-usage");
-        options.addArguments("--remote-allow-origins=*"); // Permite conexiuni externe
+        options.addArguments("--remote-allow-origins=*");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         try {
             return new ChromeDriver(options);

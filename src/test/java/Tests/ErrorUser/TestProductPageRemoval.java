@@ -29,7 +29,7 @@ public class TestProductPageRemoval extends BaseTest {
 
         InventoryPage inventoryPage = new InventoryPage(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        boolean isInventoryLoaded = wait.until(d -> inventoryPage.isOnInventoryPage());
+        boolean isInventoryLoaded = wait.until(d -> inventoryPage.isOnPage());
         Assert.assertTrue(isInventoryLoaded, "Not on inventory page after login");
         inventoryPage.addBackpackToCart();
         Assert.assertEquals(inventoryPage.getCartItemCount(), "1", "Cart should have 1 item");
@@ -37,7 +37,7 @@ public class TestProductPageRemoval extends BaseTest {
 
         inventoryPage.goToBackpackProductPage();
         ProductPage productPage = new ProductPage(driver);
-        boolean isProductLoaded = wait.until(d -> productPage.isOnProductPage());
+        boolean isProductLoaded = wait.until(d -> productPage.isOnPage());
         Assert.assertTrue(isProductLoaded, "Not on product page");
         productPage.removeFromCart();
         LoggerUtility.info("Attempted to remove Backpack from product page");

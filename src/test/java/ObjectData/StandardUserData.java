@@ -1,8 +1,5 @@
 package ObjectData;
 
-/**
- * Data object for standard_user credentials and checkout information.
- */
 public class StandardUserData {
     private final String username = "standard_user";
     private final String password = "secret_sauce";
@@ -11,10 +8,16 @@ public class StandardUserData {
     private final String postalCode = "12345";
 
     public String getUsername() {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalStateException("Username cannot be empty");
+        }
         return username;
     }
 
     public String getPassword() {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalStateException("Password cannot be empty");
+        }
         return password;
     }
 

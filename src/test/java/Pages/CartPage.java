@@ -1,17 +1,13 @@
 package Pages;
 
 import Helpers.WebActions;
-import Helpers.WebElementActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
 import java.util.List;
 
-public class CartPage {
-
-    private final WebActions webActions;
-    private final WebDriver driver;
+public class CartPage extends BasePage {
 
     @FindBy(className = "inventory_item_name")
     private List<WebElement> itemNames;
@@ -29,9 +25,7 @@ public class CartPage {
     private WebElement removeButton;
 
     public CartPage(WebDriver driver) {
-        this.driver = driver;
-        this.webActions = new WebElementActions(driver);
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public int getItemCount() {
@@ -71,7 +65,8 @@ public class CartPage {
         webActions.click(removeButton);
     }
 
-    public boolean isOnCartPage() {
+    @Override
+    public boolean isOnPage() {
         return driver.getCurrentUrl().contains("cart.html");
     }
 }

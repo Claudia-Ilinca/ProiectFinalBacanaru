@@ -1,16 +1,11 @@
 package Pages;
 
 import Helpers.WebActions;
-import Helpers.WebElementActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
-
-    private final WebActions webActions;
-    private final WebDriver driver;
+public class LoginPage extends BasePage {
 
     @FindBy(id = "user-name")
     private WebElement usernameField;
@@ -25,9 +20,7 @@ public class LoginPage {
     private WebElement errorMessage;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        this.webActions = new WebElementActions(driver);
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void login(String username, String password) {
@@ -40,12 +33,18 @@ public class LoginPage {
         return webActions.getText(errorMessage);
     }
 
+    @Override
+    public boolean isOnPage() {
+        String currentUrl = driver.getCurrentUrl();
+        return currentUrl.equals("https://www.saucedemo.com/") || currentUrl.contains("index.html");
+    }
+
     public boolean isLoginSuccessful() {
         return driver.getCurrentUrl().contains("inventory.html");
     }
 
-    public boolean isOnLoginPage() {
-        String currentUrl = driver.getCurrentUrl();
-        return currentUrl.equals("https://www.saucedemo.com/") || currentUrl.contains("index.html");
+    @Override
+    public String getPageTitle() {
+        return "Login - " + super.getPageTitle(); // Polimorfism prin suprascriere
     }
 }

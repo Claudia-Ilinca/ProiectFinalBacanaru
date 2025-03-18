@@ -1,20 +1,15 @@
 package Pages;
 
 import Helpers.WebActions;
-import Helpers.WebElementActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class InventoryPage {
-
-    private final WebActions webActions;
-    private final WebDriver driver;
+public class InventoryPage extends BasePage {
 
     @FindBy(id = "add-to-cart-sauce-labs-backpack")
     private WebElement addBackpackButton;
@@ -70,10 +65,8 @@ public class InventoryPage {
     @FindBy(id = "logout_sidebar_link")
     private WebElement logoutLink;
 
-    public InventoryPage(WebDriver driver) {
-        this.driver = driver;
-        this.webActions = new WebElementActions(driver);
-        PageFactory.initElements(driver, this);
+    public InventoryPage(WebDriver driver) { // Corectat constructorul
+        super(driver);
     }
 
     public void addBackpackToCart() {
@@ -123,28 +116,14 @@ public class InventoryPage {
 
     public List<String> getProductImageSources() {
         return productImages.stream()
-                .map(img -> {
-                    try {
-                        String src = webActions.getAttribute(img, "src");
-                        return src != null && !src.isEmpty() ? src : "";
-                    } catch (Exception e) {
-                        return "";
-                    }
-                })
-                .filter(src -> !src.isEmpty())
+                .map(img -> webActions.getAttribute(img, "src"))
+                .filter(src -> src != null && !src.isEmpty())
                 .toList();
     }
 
     public String getProductImageSrc() {
-        try {
-            if (!productImages.isEmpty() && webActions.isDisplayed(productImages.get(0))) {
-                String src = webActions.getAttribute(productImages.get(0), "src");
-                return src != null ? src : "";
-            }
-            return "";
-        } catch (Exception e) {
-            return "";
-        }
+        return !productImages.isEmpty() && webActions.isDisplayed(productImages.get(0)) ?
+                webActions.getAttribute(productImages.get(0), "src") : "";
     }
 
     public String getCartItemCount() {
@@ -211,16 +190,14 @@ public class InventoryPage {
         webActions.click(logoutLink);
     }
 
-    public boolean isOnInventoryPage() {
+    @Override
+    public boolean isOnPage() {
         try {
-            if (driver == null) {
-                return false;
-            }
             String currentUrl = driver.getCurrentUrl();
             return currentUrl != null && currentUrl.contains("inventory.html");
         } catch (WebDriverException e) {
             System.err.println("Driver unavailable in isOnInventoryPage: " + e.getMessage());
-            return false; // Returnăm false dacă driver-ul e invalid
+            return false;
         }
     }
 }

@@ -1,16 +1,11 @@
 package Pages;
 
 import Helpers.WebActions;
-import Helpers.WebElementActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class CheckoutPage {
-
-    private final WebActions webActions;
-    private final WebDriver driver;
+public class CheckoutPage extends BasePage {
 
     @FindBy(id = "first-name")
     private WebElement firstNameField;
@@ -37,9 +32,7 @@ public class CheckoutPage {
     private WebElement backHomeButton;
 
     public CheckoutPage(WebDriver driver) {
-        this.driver = driver;
-        this.webActions = new WebElementActions(driver);
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void fillCheckoutForm(String firstName, String lastName, String postalCode) {
@@ -95,7 +88,8 @@ public class CheckoutPage {
         }
     }
 
-    public boolean isOnCheckoutPage() {
+    @Override
+    public boolean isOnPage() {
         return driver.getCurrentUrl().contains("checkout-step-one.html");
     }
 

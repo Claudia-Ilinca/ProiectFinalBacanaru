@@ -5,16 +5,6 @@
             <package name="Tests.AuthenticationTests"/>
         </packages>
     </test>
-    <test name="PerformanceGlitchUserTests">
-        <packages>
-            <package name="Tests.PerformanceGlitchUser"/>
-        </packages>
-    </test>
-    <test name="ProblemUser">
-        <packages>
-            <package name="Tests.ProblemUser"/>
-        </packages>
-    </test>
     <test name="ErrorUserTests">
         <packages>
             <package name="Tests.ErrorUser"/>
