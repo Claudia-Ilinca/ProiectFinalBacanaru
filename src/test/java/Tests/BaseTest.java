@@ -37,44 +37,34 @@ public class BaseTest {
         spark.config().setDocumentTitle("Test Results - Final Project");
         LoggerUtility.info("Extent Reports initialized");
     }
-// LOCAL
-//    @BeforeMethod
-//    public void setUp(ITestResult result) {
-//        try {
-//            driver = BrowserFactory.getBrowserDriver();
-//            driver.manage().window().maximize();
-//            driver.get("https://www.saucedemo.com/");
-//            bookTable = new BookTable();
-//            extentTest = extent.createTest(result.getMethod().getMethodName(), result.getMethod().getDescription());
-//            LoggerUtility.startTest(result.getMethod().getMethodName());
-//            LoggerUtility.info("Browser initialized and navigated to saucedemo.com, SQL connection established");
-//            extentTest.log(Status.INFO, "Browser initialized and navigated to saucedemo.com");
-//        } catch (SQLException e) {
-//            LoggerUtility.error("Failed to initialize SQL connection: " + e.getMessage());
-//            if (extentTest != null) {
-//                extentTest.log(Status.FAIL, "Failed to initialize SQL connection: " + e.getMessage());
-//            }
-//            throw new RuntimeException(e);
-//        } catch (Exception e) {
-//            LoggerUtility.error("Failed to initialize browser: " + e.getMessage());
-//            if (extentTest != null) {
-//                extentTest.log(Status.FAIL, "Failed to initialize browser: " + e.getMessage());
-//            }
-//            throw e;
-//        }
-//    }
-// CI CD
+
     @BeforeMethod
     public void setUp(ITestResult result) {
         try {
             driver = BrowserFactory.getBrowserDriver();
             driver.manage().window().maximize();
             driver.get("https://www.saucedemo.com/");
-            // bookTable = new BookTable();
+
+            // Verificăm dacă rulează în CI/CD
+            boolean isCI = "true".equalsIgnoreCase(System.getenv("CI"));
+            if (!isCI) {
+                // Local: Inițializăm SQL
+                bookTable = new BookTable();
+                LoggerUtility.info("Browser initialized and navigated to saucedemo.com, SQL connection established");
+            } else {
+                // CI/CD: Fără SQL
+                LoggerUtility.info("Browser initialized and navigated to saucedemo.com (CI/CD mode, no SQL)");
+            }
+
             extentTest = extent.createTest(result.getMethod().getMethodName(), result.getMethod().getDescription());
             LoggerUtility.startTest(result.getMethod().getMethodName());
-            LoggerUtility.info("Browser initialized and navigated to saucedemo.com");
             extentTest.log(Status.INFO, "Browser initialized and navigated to saucedemo.com");
+        } catch (SQLException e) {
+            LoggerUtility.error("Failed to initialize SQL connection: " + e.getMessage());
+            if (extentTest != null) {
+                extentTest.log(Status.FAIL, "Failed to initialize SQL connection: " + e.getMessage());
+            }
+            throw new RuntimeException(e);
         } catch (Exception e) {
             LoggerUtility.error("Failed to initialize browser: " + e.getMessage());
             if (extentTest != null) {
@@ -131,9 +121,16 @@ public class BaseTest {
     }
 
     private void forceCleanup() {
+        // Ajustăm pentru Linux (CI/CD) și Windows (local)
+        boolean isCI = "true".equalsIgnoreCase(System.getenv("CI"));
         try {
-            Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
-            LoggerUtility.info("Forcefully terminated ChromeDriver processes");
+            if (isCI) {
+                Runtime.getRuntime().exec("pkill -f chromedriver");
+                LoggerUtility.info("Forcefully terminated ChromeDriver processes (Linux)");
+            } else {
+                Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
+                LoggerUtility.info("Forcefully terminated ChromeDriver processes (Windows)");
+            }
             Thread.sleep(1000);
         } catch (IOException | InterruptedException e) {
             LoggerUtility.error("Failed to force cleanup of ChromeDriver: " + e.getMessage());
