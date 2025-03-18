@@ -37,45 +37,24 @@ public class BaseTest {
         spark.config().setDocumentTitle("Test Results - Final Project");
         LoggerUtility.info("Extent Reports initialized");
     }
-
-    @BeforeMethod
-    public void setUp(ITestResult result) {
-        try {
-            driver = BrowserFactory.getBrowserDriver();
-            driver.manage().window().maximize();
-            driver.get("https://www.saucedemo.com/");
-            bookTable = new BookTable();
-            extentTest = extent.createTest(result.getMethod().getMethodName(), result.getMethod().getDescription());
-            LoggerUtility.startTest(result.getMethod().getMethodName());
-            LoggerUtility.info("Browser initialized and navigated to saucedemo.com, SQL connection established");
-            extentTest.log(Status.INFO, "Browser initialized and navigated to saucedemo.com");
-        } catch (SQLException e) {
-            LoggerUtility.error("Failed to initialize SQL connection: " + e.getMessage());
-            if (extentTest != null) {
-                extentTest.log(Status.FAIL, "Failed to initialize SQL connection: " + e.getMessage());
-            }
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            LoggerUtility.error("Failed to initialize browser: " + e.getMessage());
-            if (extentTest != null) {
-                extentTest.log(Status.FAIL, "Failed to initialize browser: " + e.getMessage());
-            }
-            throw e;
-        }
-    }
-
+// LOCAL
 //    @BeforeMethod
 //    public void setUp(ITestResult result) {
 //        try {
 //            driver = BrowserFactory.getBrowserDriver();
 //            driver.manage().window().maximize();
 //            driver.get("https://www.saucedemo.com/");
-//            // ComentÄƒm sau eliminÄƒm conexiunea SQL pentru E2E pur
-//            // bookTable = new BookTable();
+//            bookTable = new BookTable();
 //            extentTest = extent.createTest(result.getMethod().getMethodName(), result.getMethod().getDescription());
 //            LoggerUtility.startTest(result.getMethod().getMethodName());
-//            LoggerUtility.info("Browser initialized and navigated to saucedemo.com");
+//            LoggerUtility.info("Browser initialized and navigated to saucedemo.com, SQL connection established");
 //            extentTest.log(Status.INFO, "Browser initialized and navigated to saucedemo.com");
+//        } catch (SQLException e) {
+//            LoggerUtility.error("Failed to initialize SQL connection: " + e.getMessage());
+//            if (extentTest != null) {
+//                extentTest.log(Status.FAIL, "Failed to initialize SQL connection: " + e.getMessage());
+//            }
+//            throw new RuntimeException(e);
 //        } catch (Exception e) {
 //            LoggerUtility.error("Failed to initialize browser: " + e.getMessage());
 //            if (extentTest != null) {
@@ -84,6 +63,26 @@ public class BaseTest {
 //            throw e;
 //        }
 //    }
+// CI CD
+    @BeforeMethod
+    public void setUp(ITestResult result) {
+        try {
+            driver = BrowserFactory.getBrowserDriver();
+            driver.manage().window().maximize();
+            driver.get("https://www.saucedemo.com/");
+            // bookTable = new BookTable();
+            extentTest = extent.createTest(result.getMethod().getMethodName(), result.getMethod().getDescription());
+            LoggerUtility.startTest(result.getMethod().getMethodName());
+            LoggerUtility.info("Browser initialized and navigated to saucedemo.com");
+            extentTest.log(Status.INFO, "Browser initialized and navigated to saucedemo.com");
+        } catch (Exception e) {
+            LoggerUtility.error("Failed to initialize browser: " + e.getMessage());
+            if (extentTest != null) {
+                extentTest.log(Status.FAIL, "Failed to initialize browser: " + e.getMessage());
+            }
+            throw e;
+        }
+    }
 
     @AfterMethod
     public void tearDown(ITestResult result) {
